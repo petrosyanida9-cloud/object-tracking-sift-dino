@@ -1,0 +1,7 @@
+numpy<2.0.0
+supervision==0.25.0
+transformers
+accelerate
+opencv-python
+torch
+pillow
