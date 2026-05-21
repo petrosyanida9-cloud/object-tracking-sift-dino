@@ -14,7 +14,6 @@ An advanced hybrid computer vision architecture optimized for:
 ![PyTorch](https://img.shields.io/badge/PyTorch-CUDA-red?style=for-the-badge&logo=pytorch)
 ![OpenCV](https://img.shields.io/badge/OpenCV-Computer_Vision-green?style=for-the-badge&logo=opencv)
 ![GroundingDINO](https://img.shields.io/badge/GroundingDINO-ZeroShot-orange?style=for-the-badge)
-![License](https://img.shields.io/badge/License-MIT-purple?style=for-the-badge)
 
 </div>
 
@@ -24,9 +23,9 @@ An advanced hybrid computer vision architecture optimized for:
 
 This repository presents a **high-performance hybrid computer vision pipeline** that combines:
 
-- 🧠 **Zero-shot semantic object detection**
-- 📐 **Invariant geometric verification**
-- 🏎️ **Ultra-fast visual tracking**
+- 🧠 Zero-shot semantic object detection
+- 📐 Invariant geometric verification
+- 🏎️ Ultra-fast visual tracking
 
 The system is engineered for **extreme precision environments where false positives must approach zero**.
 
@@ -217,6 +216,9 @@ Tracker Drift?
 
 # 🎥 Real-Time Tracking Demo
 
+> ⚠️ GitHub mobile sometimes does not autoplay embedded videos.  
+> Click the link below to open the demo directly.
+
 https://github.com/user-attachments/assets/ba271dc7-2e47-4c93-9a3b-13f34fed960c
 
 <div align="center">
@@ -242,6 +244,8 @@ https://github.com/user-attachments/assets/ba271dc7-2e47-4c93-9a3b-13f34fed960c
 ---
 
 # 🔍 SIFT Correspondence Visualization
+
+> ⚠️ Open the link directly if GitHub preview does not render automatically.
 
 https://github.com/user-attachments/assets/67189a73-65f5-4f60-900c-e2a40df3c9d4
 
@@ -396,46 +400,6 @@ Outputs:
 - 🎯 Persistent surveillance
 - 🔍 Rotation-invariant localization
 - ⚡ High-precision tactical vision systems
-
----
-
-# 🔮 Future Improvements
-
-- Multi-object tracking
-- Kalman filtering
-- Optical flow fusion
-- DeepSORT integration
-- TensorRT acceleration
-- Distributed multi-camera support
-- ORB lightweight embedded mode
-
----
-
-# 👨‍💻 Author
-
-Developed as a high-precision research-oriented hybrid computer vision system combining:
-
-- semantic intelligence
-- geometric invariance
-- real-time performance
-
-into a unified architecture.
-
----
-
-# 📜 License
-
-MIT License
-
----
-
-# ⭐ Support The Project
-
-If this repository helped you:
-
-⭐ Star the repository  
-🍴 Fork the project  
-🧠 Contribute improvements  
 
 ---
 
