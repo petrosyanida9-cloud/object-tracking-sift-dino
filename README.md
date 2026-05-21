@@ -54,7 +54,7 @@
 
 | Reference Target | Demo |
 |:---:|:---:|
-| <img src="https://github.com/user-attachments/assets/d7175ae2-9654-4cb8-b92a-98355ff8574f" width="240"> | [![Demo](https://github.com/user-attachments/assets/d7175ae2-9654-4cb8-b92a-98355ff8574f)](REPLACE_WITH_VIDEO_URL) |
+| <img src="https://github.com/user-attachments/assets/d7175ae2-9654-4cb8-b92a-98355ff8574f" width="240"> | [![Demo](https://github.com/user-attachments/assets/d7175ae2-9654-4cb8-b92a-98355ff8574f)]([REPLACE_WITH_VIDEO_URL](https://github.com/user-attachments/assets/38420e03-a5ce-4cdc-9919-b8f888576c0a)) |
 | *Reference image used for SIFT verification* | *▶ Click to watch — Grounding DINO → SIFT verification → CSRT takeover* |
 
 ---
