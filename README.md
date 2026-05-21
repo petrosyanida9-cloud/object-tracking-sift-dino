@@ -111,21 +111,26 @@ Scale & rotation invariant SIFT correspondence verification using FLANN matching
 # 🖼️ Additional Matching Visualizations
 
 <table align="center">
+
 <tr>
-  <td><img src="assets/results/match_5390824680161219385.jpg" width="300"></td>
-  <td><img src="assets/results/match_5390824680161219406.jpg" width="300"></td>
-  <td><img src="assets/results/match_5390824680161219409.jpg" width="300"></td>
+  <td><img src="assets/results/match_5390824680161219385.jpg" width="450"></td>
+  <td><img src="assets/results/match_5390824680161219406.jpg" width="450"></td>
 </tr>
 
 <tr>
-  <td><img src="assets/results/match_5390824680161219412.jpg" width="300"></td>
-  <td><img src="assets/results/match_5390824680161219423.jpg" width="300"></td>
-  <td><img src="assets/results/match_5391006524781564753.jpg" width="300"></td>
+  <td><img src="assets/results/match_5390824680161219409.jpg" width="450"></td>
+  <td><img src="assets/results/match_5390824680161219412.jpg" width="450"></td>
 </tr>
+
+<tr>
+  <td><img src="assets/results/match_5390824680161219423.jpg" width="450"></td>
+  <td><img src="assets/results/match_5391006524781564753.jpg" width="450"></td>
+</tr>
+
 </table>
 
 <p align="center">
-SIFT + FLANN geometric correspondence visualizations across varying scales, rotations, and illumination conditions
+SIFT + FLANN geometric correspondence visualizations across scale, rotation, and illumination changes
 </p>
 
 # 🛠️ Repository Structure
