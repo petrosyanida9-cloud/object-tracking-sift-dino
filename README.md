@@ -50,11 +50,27 @@
 
 # 📊 Results & Demonstrations
 
-## 🎥 Video Tracking & Target Lock-On
+## 🎥 Real-Time Video Tracking & Target Lock-On
 
-<p align="center">
-  <img src="assets/gifs/demo.gif" width="1000">
-</p>
+<table align="center">
+<tr>
+<td align="center">
+
+### Reference Target
+
+<img src="assets/images/target.jpg" width="260">
+
+</td>
+
+<td align="center">
+
+### Tracking Demo
+
+<img src="assets/gifs/demo.gif" width="700">
+
+</td>
+</tr>
+</table>
 
 <p align="center">
 Grounding DINO semantic proposals → SIFT verification → CSRT persistent tracking
@@ -64,9 +80,25 @@ Grounding DINO semantic proposals → SIFT verification → CSRT persistent trac
 
 ## 📐 Batch Image Verification (Rotation & Scale Invariance)
 
-<p align="center">
-  <img src="assets/gifs/demo2.gif" width="1000">
-</p>
+<table align="center">
+<tr>
+<td align="center">
+
+### Reference Target
+
+<img src="assets/images/target_vd.jpg" width="260">
+
+</td>
+
+<td align="center">
+
+### Verification Demo
+
+<img src="assets/gifs/demo2.gif" width="700">
+
+</td>
+</tr>
+</table>
 
 <p align="center">
 Scale & rotation invariant SIFT correspondence verification using FLANN matching
