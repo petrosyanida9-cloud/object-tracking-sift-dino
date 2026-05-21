@@ -1,26 +1,21 @@
 # Hybrid Zero-Shot Object Detection, Keypoint Verification & Tracking
 
-> A high-accuracy computer vision pipeline combining GPU-accelerated zero-shot detection (Grounding DINO), invariant feature verification (SIFT + FLANN), and high-speed state tracking (CSRT) — engineered for zero false-positive scenarios such as satellite imagery analysis and tactical target tracking.
+> A high-accuracy computer vision pipeline combining GPU-accelerated zero-shot detection (Grounding DINO), invariant feature verification (SIFT + FLANN), and high-speed state tracking (CSRT) — built for zero false-positive scenarios such as satellite imagery analysis and tactical target tracking.
 
 ---
 
 ## 📌 The Problem
 
-Modern CV systems break down in real-world tactical or satellite scenarios due to four core bottlenecks:
-
 | # | Bottleneck | Why It Fails |
 |---|-----------|-------------|
 | 1 | **Heavy Inference** | Running Grounding DINO on every frame is prohibitively slow at high resolution |
-| 2 | **Scale & Rotation Variance** | Drone/satellite objects constantly shift orientation (0–360°) and scale — image pyramids are memory-hungry |
-| 3 | **Illumination Instability** | Sun glare, shadows, weather, and day/night cycles defeat pixel-level template matching |
+| 2 | **Scale & Rotation Variance** | Drone/satellite objects constantly shift orientation (0–360°) and scale |
+| 3 | **Illumination Instability** | Sun glare, shadows, and day/night cycles defeat pixel-level template matching |
 | 4 | **Tracker Drift** | Lightweight trackers (CSRT) have no semantic recovery — once lost, the target is gone |
 
 ---
 
-## 💡 Our Hybrid Solution
-
-The pipeline separates concerns into three specialized, cooperating layers:
-
+## 💡 Hybrid Solution
 ┌─────────────────────────────────────────────────────────────────┐
 │  LAYER 1 — GPU: Grounding DINO (Zero-Shot Semantic Proposals)   │
 │           Text prompt → candidate bounding boxes                │
@@ -37,11 +32,10 @@ The pipeline separates concerns into three specialized, cooperating layers:
 │           Neural net sleeps  │  Smooth real-time performance    │
 │           Auto wake on drift │  Re-triggers Layers 1 & 2        │
 └─────────────────────────────────────────────────────────────────┘
-
-- **⚡ Speed** — Heavy GPU inference runs only when needed; CSRT handles in-between frames
-- **📐 Invariance** — SIFT is mathematically resistant to scale and rotation — no brute-force pyramids
-- **🌦️ Illumination Robustness** — Grounding DINO's semantic understanding doesn't rely on pixel appearance
-- **🔄 Self-Recovery** — Drift is detected automatically, triggering a full re-localization cycle
+- **⚡ Speed** — GPU inference runs only when needed; CSRT handles in-between frames
+- **📐 Invariance** — SIFT is mathematically resistant to scale and rotation by design
+- **🌦️ Illumination Robustness** — Grounding DINO's semantic understanding ignores pixel-level changes
+- **🔄 Self-Recovery** — Drift triggers automatic re-localization via DINO + SIFT
 
 ---
 
@@ -49,50 +43,40 @@ The pipeline separates concerns into three specialized, cooperating layers:
 
 ### 🎥 Part 1 — Real-Time Video Tracking & Target Lock-On
 
-The pipeline locks onto a verified target and hands off to CSRT for smooth, low-latency frame tracking. If the tracker drifts, Grounding DINO + SIFT automatically re-engage.
-
-| Reference Target | Live Tracking Demo |
+| Reference Target | Demo |
 |:---:|:---:|
-| <img src="https://github.com/user-attachments/assets/d7175ae2-9654-4cb8-b92a-98355ff8574f" width="220"> | [![Watch tracking demo](https://github.com/user-attachments/assets/d7175ae2-9654-4cb8-b92a-98355ff8574f)](https://github.com/user-attachments/assets/ba271dc7-2e47-4c93-9a3b-13f34fed960c) |
-| *Reference image fed into SIFT for geometric verification* | *▶ Click to watch — Grounding DINO + SIFT lock-on, then CSRT takeover* |
-
----
+| <img src="https://github.com/user-attachments/assets/d7175ae2-9654-4cb8-b92a-98355ff8574f" width="240"> | [![Demo](https://github.com/user-attachments/assets/d7175ae2-9654-4cb8-b92a-98355ff8574f)](REPLACE_WITH_res_vd_URL) |
+| *Target reference used for SIFT lock-on* | *▶ Click to watch — DINO + SIFT lock-on → CSRT takeover* |
 
 ### 📐 Part 2 — Batch Image Verification (Scale & Rotation Invariance)
 
-For static datasets and large map grids, the system draws point-to-point SIFT correspondence lines to confirm structural alignment with zero false positives.
-
-| SIFT Match Example | SIFT Match Example 2 | Correspondence Mapping Demo |
-|:---:|:---:|:---:|
-| <img src="YOUR_SIFT_IMAGE_1_URL_HERE" width="200"> | <img src="YOUR_SIFT_IMAGE_2_URL_HERE" width="200"> | [![Watch SIFT demo](YOUR_SIFT_IMAGE_1_URL_HERE)](https://github.com/user-attachments/assets/67189a73-65f5-4f60-900c-e2a40df3c9d4) |
-| *True positive: keypoint lines confirm match* | *True positive: scale/rotation invariant* | *▶ Click to watch — live SIFT correspondence overlay* |
-
-> 💡 **How to add your SIFT images:** Go to any Issue in your repo → drag & drop your image from `matching_visuals_0.75/` into the comment box → copy the `https://github.com/user-attachments/assets/...` URL → replace `YOUR_SIFT_IMAGE_1_URL_HERE` above.
+| Reference Target | Demo |
+|:---:|:---:|
+| <img src="https://github.com/user-attachments/assets/df0f3451-1c96-47d0-9aad-c736274e02c1" width="240"> | [![Demo](https://github.com/user-attachments/assets/df0f3451-1c96-47d0-9aad-c736274e02c1)](REPLACE_WITH_res_vd1_URL) |
+| *Candidate region from batch image* | *▶ Click to watch — SIFT correspondence lines overlay* |
 
 ---
 
-## 🛠️  Repository Architecture
-
-```
+## 🛠️ Repository Structure
 object-tracking-sift-dino/
 ├── data/
 │   ├── inputs/
-│   │   ├── target.jpg          # Reference target image to find/verify
-│   │   ├── video.mp4           # Input video stream for real-time tracking
-│   │   └── images/             # Directory containing static images for batch testing
+│   │   ├── target.jpg                   # Reference image for SIFT verification
+│   │   ├── video.mp4                    # Input video for real-time tracking
+│   │   └── images/                      # Static images for batch processing
 │   └── outputs/
-│       ├── output_detected_video.mp4  # Generated high-speed tracking video
-│       ├── output_accurate/           # Bounding box annotated frames (DINO verified)
-│       └── matching_visuals_0.75/     # SIFT verification line plots
+│       ├── output_detected_video.mp4    # Annotated tracking output video
+│       ├── output_accurate/             # DINO-verified bounding box frames
+│       └── matching_visuals_0.75/       # SIFT correspondence visualizations
 ├── src/
-│   ├── video_pipeline.py       # Live Tracking Script (DINO + SIFT + CSRT Tracker)
-│   └── image_pipeline.py       # Static Batch Verification Script (DINO + SIFT + FLANN)
-├── .gitignore
-├── README.md
-└── requirements.txt
+│   ├── video_pipeline.py                # Real-time: DINO + SIFT + CSRT tracker
+│   └── image_pipeline.py               # Batch: DINO + SIFT + FLANN verification
+├── requirements.txt
+└── README.md
 ---
+
 ## ⚙️ Technical Parameters
----
+
 | Parameter | Value | Rationale |
 |-----------|-------|-----------|
 | SIFT Lowe's Ratio | `0.75` | Balances match precision vs. recall |
@@ -129,11 +113,11 @@ $$L(x, y, \sigma) = G(x, y, \sigma) * I(x, y)$$
 
 Keypoints are detected at scale-space extrema of the Difference-of-Gaussians, giving inherent scale invariance.
 
-**Lowe's Ratio Test** (false-match rejection):
+**Lowe's Ratio Test:**
 
 $$\frac{d_1}{d_2} < 0.75$$
 
-Only matches where the nearest neighbor is significantly closer than the second-nearest are kept, eliminating ambiguous correspondences.
+Only matches where the nearest neighbor is significantly closer than the second-nearest survive, eliminating ambiguous correspondences.
 
 **FLANN** reduces nearest-neighbor search from $O(n^2)$ to $O(n \log n)$, enabling real-time performance on large keypoint sets.
 
