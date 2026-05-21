@@ -50,26 +50,27 @@
 
 # 📊 Results & Demonstrations
 
-## 🎥 Part 1 — Real-Time Video Tracking & Target Lock-On
+## 🎥 Real-Time Video Tracking & Target Lock-On
 
-| Reference Target | Demo |
-|:---:|:---:|
-| <img src="https://github.com/user-attachments/assets/d7175ae2-9654-4cb8-b92a-98355ff8574f" width="240"> | [![Demo](https://github.com/user-attachments/assets/d7175ae2-9654-4cb8-b92a-98355ff8574f)]([[REPLACE_WITH_VIDEO_URL](https://github.com/user-attachments/assets/415a4517-d993-4c11-b059-ae2d60a1afa1
-)](https://github.com/user-attachments/assets/38420e03-a5ce-4cdc-9919-b8f888576c0a)) |
+<p align="center">
+  <img src="assets/gifs/demo.gif" width="1000">
+</p>
 
-
-
-| *Reference image used for SIFT verification* | *▶ Click to watch — Grounding DINO → SIFT verification → CSRT takeover* |
+<p align="center">
+Grounding DINO semantic proposals → SIFT verification → CSRT persistent tracking
+</p>
 
 ---
 
-## 📐 Part 2 — Batch Image Verification (Rotation & Scale Invariance)
+## 📐 Batch Image Verification (Rotation & Scale Invariance)
 
-| Reference Target | Demo |
-|:---:|:---:|
-| <img src="https://github.com/user-attachments/assets/df0f3451-1c96-47d0-9aad-c736274e02c1" width="240"> | [![Demo](https://github.com/user-attachments/assets/df0f3451-1c96-47d0-9aad-c736274e02c1)](REPLACE_WITH_BATCH_VIDEO_URL) |
-| *Candidate crop extracted from large image* | *▶ Click to watch — SIFT correspondence visualization overlay* |
+<p align="center">
+  <img src="assets/gifs/demo2.gif" width="1000">
+</p>
 
+<p align="center">
+Scale & rotation invariant SIFT correspondence verification using FLANN matching
+</p>
 ---
 
 # 🛠️ Repository Structure
