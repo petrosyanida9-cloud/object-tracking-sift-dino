@@ -34,16 +34,17 @@ Here is how the hybrid pipeline performs under strict verification and dynamic t
 ### A. Real-Time Video Tracking & Target Lock-On
 *The baseline target is verified via SIFT geometry on the GPU, after which the lightweight CSRT tracker maintains a high frame-rate lock-on.*
 
-| 🎯 Reference Target Image | 🔒 Target Verification & Active Tracking |
+| 🎯 Reference Target Image | 🔒 Target Verification & Active Tracking (Click to Play) |
 |---|---|
-| <img src="https://github.com/user-attachments/assets/d7175ae2-9654-4cb8-b92a-98355ff8574f" width="220" alt="Target Reference"> <br> *Figure 1: The specific structural target used for matching.* | <video src="data/outputs/output_accurate/tracking_fixed.mp4" width="100%" autoplay loop muted controls></video> <br> *Figure 2: Grounding DINO + SIFT locking on and offloading to CSRT.* |
+| <img src="https://github.com/user-attachments/assets/d7175ae2-9654-4cb8-b92a-98355ff8574f" width="220" alt="Target Reference"> <br> *Figure 1: The specific structural target used for matching.* | [![Watch the Video](https://img.shields.io/badge/▶_Watch_Tracking_Demo-🔥_Click_Here-blue?style=for-the-badge&logo=target)](https://github.com/user-attachments/assets/7c120bc5-9f60-4414-afba-359da6bb4d51) <br><br> *Figure 2: Click the badge above to watch the Grounding DINO + SIFT active tracking stream.* |
 
 ### B. Image Collection Batch Verification (Scale & Rotation Invariance)
 *When evaluating static datasets or large map grids, the system maps precise point-to-point visual correlation lines to guarantee absolute structural alignment.*
 
-| 🖼️ Multi-Object Scene Detection | 📐 SIFT Point Correspondence Mapping |
+| 🖼️ Multi-Object Scene Detection | 📐 SIFT Point Correspondence Mapping (Click to Play) |
 |---|---|
-| <img src="https://github.com/user-attachments/assets/df0f3451-1c96-47d0-9aad-c736274e02c1" width="180" alt="Target Object"> <br> *Figure 3: Candidate region proposal.* | <img src="https://github.com/user-attachments/assets/4a6a8c63-ecfa-4d84-b77c-b13b00de24a5" width="100%" alt="SIFT Invariant matching"> <br> *Figure 4: Invariant feature matching overlay.* |
+| <img src="https://github.com/user-attachments/assets/df0f3451-1c96-47d0-9aad-c736274e02c1" width="180" alt="Target Object"> <br> *Figure 3: Candidate region proposal.* | [![Watch the Video](https://img.shields.io/badge/▶_Watch_SIFT_Mapping-⚡_Click_Here-green?style=for-the-badge&logo=opencv)](https://github.com/user-attachments/assets/4a6a8c63-ecfa-4d84-b77c-b13b00de24a5) <br><br> *Figure 4: Click the badge above to watch the invariant feature matching overlay.* |
+
 ## 🛠️ 4. Repository Architecture
 
 ```text
