@@ -90,12 +90,9 @@ object-tracking-sift-dino/
 ├── .gitignore
 ├── README.md
 └── requirements.txt
-
-
 ---
-
 ## ⚙️ Technical Parameters
-
+---
 | Parameter | Value | Rationale |
 |-----------|-------|-----------|
 | SIFT Lowe's Ratio | `0.75` | Balances match precision vs. recall |
