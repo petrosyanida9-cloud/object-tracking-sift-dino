@@ -127,6 +127,7 @@ Scale & rotation invariant SIFT correspondence verification using FLANN matching
 <p align="center">
 SIFT + FLANN geometric correspondence visualizations across varying scales, rotations, and illumination conditions
 </p>
+
 # 🛠️ Repository Structure
 
 ```text
