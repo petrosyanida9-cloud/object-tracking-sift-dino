@@ -1,43 +1,50 @@
 # Hybrid Zero-Shot Object Detection, Keypoint Verification & Tracking
 
 An advanced computer vision pipeline that combines deep learning zero-shot object detection with classic high-precision feature matching and high-speed state tracking. This hybrid architecture is specifically optimized for high-accuracy targets where false positives must be zero, such as locating specific structures in satellite/map imagery or maintaining a continuous lock on specific moving targets.
+# Hybrid Zero-Shot Object Detection, Keypoint Verification & Tracking
+
+An advanced computer vision pipeline that combines deep learning zero-shot object detection with classic high-precision feature matching and high-speed state tracking. This hybrid architecture is specifically optimized for high-accuracy targets where false positives must be zero, such as locating specific structures in satellite/map imagery or maintaining a continuous lock on specific moving targets.
 
 ---
 
-## 📌 1. The Problem Statement
-Modern computer vision systems often struggle with two fundamental challenges when deployed in precision-critical tracking scenarios:
-1. **The Heavy Inference Bottleneck:** Running large transformer-based object detectors (like Grounding DINO) on every single frame of a high-resolution video stream is computationally prohibitive and causes latency.
-2. **The Tracker Drift & False Positive Dilemma:** Standard lightweight visual trackers (like CSRT or KCF) are fast but lack semantic intelligence. They easily lose the target (drift) during fast motion, occlusion, or background noise, and they cannot self-verify if they are tracking the correct asset or a background object.
+## 📌 1. The Problem Statement (Խնդիրը)
+Modern computer vision systems face critical failures when deployed in real-world tactical or satellite tracking scenarios due to four main bottlenecks:
+1. **The Heavy Inference Bottleneck:** Running large transformer-based object detectors (like Grounding DINO) on every single frame of a high-resolution video stream is computationally prohibitive and causes massive latency.
+2. **Extreme Scale & Rotation Variations:** Objects captured from drones or satellites constantly change orientation ($360^\circ$ rotation) and altitude (drastic scale differences). Naive tracking or brute-force image pyramids fail or consume too much memory.
+3. **Illumination Inconstancy:** Sun glare, moving shadows, weather conditions, and day/night shifts radically change the pixel-level appearance of the target, tripping up basic template-matching algorithms.
+4. **The Tracker Drift Dilemma:** Lightweight visual trackers (like CSRT) are fast but lack semantic intelligence. Once they lose the target due to rapid occlusion or background noise, they cannot self-verify or recover.
 
 ---
 
-## 💡 2. Our Hybrid Solution
-This repository presents an elegant split-architecture pipeline that solves both constraints by separating **Localization**, **Strict Verification**, and **High-Speed Tracking**:
+## 💡 2. Our Hybrid Solution (Մեր Լուծումը)
+This repository presents an elegant, mathematically robust pipeline that achieves **blazing-fast speed** and **multi-environmental invariance** by separating tasks into specialized layers:
 
-* **Zero-Shot Candidate Proposal:** We leverage **Grounding DINO** using semantic text prompts (e.g., `small object . tiny structure . central building .`) to locate target candidates without training a custom object detector.
-* **Rigorous SIFT Verification:** To eliminate false detections, candidates are validated against a local reference image (`target.jpg`). Feature extraction via **SIFT** and correspondence matching via **FLANN** filter out noise using a tight **Lowe's Ratio (0.75)**. A target lock-on is granted *only* if geometric consistency meets a minimum threshold of **>= 7 strict keypoint matches**.
-* **Offloaded Continuous Tracking:** Once a target is verified, the heavy neural network inference goes to sleep. A fast, CPU-efficient **OpenCV CSRT Tracker** takes over to maintain real-time tracking across video frames.
-* **Automated Drift Recovery:** If the CSRT tracker's confidence drops or loses the target, the pipeline automatically re-triggers the Grounding DINO + SIFT loop to re-localize and re-lock the asset.
+* **⚡ GPU-Accelerated Zero-Shot Proposals:** We leverage **Grounding DINO** combined with **PyTorch CUDA acceleration** to parse complex scenes instantly based on text prompts. This provides semantic-level candidate localization under extreme illumination shifts without custom training.
+* **📐 Invariant Feature Verification (Scale & Rotation):** To eliminate false positives, candidates are cross-verified against `target.jpg`. By using **SIFT + FLANN**, we exploit SIFT’s intrinsic mathematical resistance to scale and rotation. This avoids inefficient brute-force image pyramids while maintaining strict geometric verification ($\text{Lowe's Ratio} = 0.75$, $\text{Min Matches} \ge 7$).
+* **🏎️ Offloaded CPU Tracking:** Once a high-confidence lock-on is verified via GPU, the heavy neural network goes to sleep. A fast, highly efficient **OpenCV CSRT Tracker** takes over frame-by-frame monitoring on the CPU, achieving smooth real-time performance.
+* **🔄 Automatic Drift Recovery:** If the tracker encounters severe obstruction and drifts, the pipeline automatically wakes up the GPU-bound Grounding DINO + SIFT loop to re-localize and re-lock the target.
 
 ---
 
-## 📊 3. Visual Results & Outputs
-Here is the pipeline executing successfully under strict constraints.
+## 📊 3. Visual Results & Showcase (Արդյունքներ)
+
+Here is how the pipeline performs under strict verification constraints. 
 
 ### A. Real-Time Video Tracking & Lock-On
-*Below you can see Grounding DINO initially detecting the target, SIFT verifying the keypoint geometry, and the CSRT tracker taking over with high frame rates.*
+*Below is the automated process: Grounding DINO fires on the GPU ➡️ SIFT verifies the target geometry ➡️ CSRT locks onto the tracking states.*
 
-| Initial Target Lock & Verification | Continuous CSRT Tracker States |
+| 🔒 Target Verification & Lock-On | 🏎️ High-Speed Active Tracking |
 |---|---|
-| <!-- Replace 'data/outputs/verification.png' with your image or GIF path --> <img src="data/outputs/output_accurate/det_frame_sample.jpg" width="100%" alt="Target Locked"> | <!-- Replace with another screenshot or video link --> <img src="data/outputs/output_accurate/tracking_sample.gif" width="100%" alt="Tracking Mode"> |
+| <img src="data/outputs/output_accurate/det_frame_sample.jpg" width="100%" alt="Target Locked via DINO+SIFT"> <br> *Figure 1: Initial detection and validation using CUDA & strict SIFT matching.* | <img src="data/outputs/output_accurate/tracking_sample.gif" width="100%" alt="Active CSRT Tracking Mode"> <br> *Figure 2: Lightweight tracking loop running at high frame rates.* |
 
-### B. Image Collection Batch Verification (SIFT Feature Matching Lines)
-*For individual image analysis, the pipeline isolates candidate bounding boxes and maps point-to-point correspondence to prove mathematical alignment.*
+### B. Image Collection Batch Verification (Scale & Rotation Invariance)
+*For individual image analysis or satellite grids, the pipeline isolates candidates and maps point-to-point visual correlation lines to prove absolute structural alignment, regardless of orientation.*
 
-<!-- Place one of your best matching output images here -->
-![SIFT Mapping Lines](data/outputs/matching_visuals_0.75/match_sample.jpg)
-
----
+<p align="center">
+  <img src="data/outputs/matching_visuals_0.75/match_sample.jpg" width="90%" alt="SIFT Point-to-Point Correspondence">
+  <br>
+  <i>Figure 3: Detailed SIFT + FLANN verification lines showing robust invariant matching on target crops.</i>
+</p>
 
 ## 🛠️ 4. Repository Architecture
 
