@@ -1,6 +1,4 @@
-# Hybrid Zero-Shot Object Detection, Keypoint Verification & Tracking
 
-An advanced computer vision pipeline that combines deep learning zero-shot object detection with classic high-precision feature matching and high-speed state tracking. This hybrid architecture is specifically optimized for high-accuracy targets where false positives must be zero, such as locating specific structures in satellite/map imagery or maintaining a continuous lock on specific moving targets.
 # Hybrid Zero-Shot Object Detection, Keypoint Verification & Tracking
 
 An advanced computer vision pipeline that combines deep learning zero-shot object detection with classic high-precision feature matching and high-speed state tracking. This hybrid architecture is specifically optimized for high-accuracy targets where false positives must be zero, such as locating specific structures in satellite/map imagery or maintaining a continuous lock on specific moving targets.
