@@ -1,128 +1,234 @@
 # Hybrid Zero-Shot Object Detection, Keypoint Verification & Tracking
 
-> A high-accuracy computer vision pipeline combining GPU-accelerated zero-shot detection (Grounding DINO), invariant feature verification (SIFT + FLANN), and high-speed state tracking (CSRT) — built for zero false-positive scenarios such as satellite imagery analysis and tactical target tracking.
+> A high-accuracy computer vision pipeline combining GPU-accelerated zero-shot detection (Grounding DINO), invariant feature verification (SIFT + FLANN), and high-speed state tracking (CSRT) — designed for ultra-low false-positive environments such as satellite imagery analysis, UAV surveillance, and tactical target tracking.
 
 ---
 
-## 📌 The Problem
+# 📌 The Problem
 
 | # | Bottleneck | Why It Fails |
-|---|-----------|-------------|
-| 1 | **Heavy Inference** | Running Grounding DINO on every frame is prohibitively slow at high resolution |
-| 2 | **Scale & Rotation Variance** | Drone/satellite objects constantly shift orientation (0–360°) and scale |
-| 3 | **Illumination Instability** | Sun glare, shadows, and day/night cycles defeat pixel-level template matching |
-| 4 | **Tracker Drift** | Lightweight trackers (CSRT) have no semantic recovery — once lost, the target is gone |
+|---|---|---|
+| 1 | Heavy Neural Inference | Running Grounding DINO on every frame becomes prohibitively slow at high resolutions |
+| 2 | Rotation & Scale Variance | Drone/satellite targets continuously rotate and change scale |
+| 3 | Illumination Instability | Shadows, glare, weather, and day/night cycles break pixel-level matching |
+| 4 | Tracker Drift | Lightweight trackers lose semantic awareness and cannot recover once drift occurs |
 
 ---
 
-## 💡 Hybrid Solution
+# 💡 Hybrid Solution
+
+```text
 ┌─────────────────────────────────────────────────────────────────┐
-│  LAYER 1 — GPU: Grounding DINO (Zero-Shot Semantic Proposals)   │
-│           Text prompt → candidate bounding boxes                │
+│  LAYER 1 — GPU: Grounding DINO                                 │
+│  Zero-shot semantic object proposals via text prompts          │
 └────────────────────────┬────────────────────────────────────────┘
-│ candidates
+                         │ candidate boxes
 ┌────────────────────────▼────────────────────────────────────────┐
-│  LAYER 2 — GPU: SIFT + FLANN (Invariant Feature Verification)   │
-│           Cross-verify vs target.jpg  │  Lowe's Ratio = 0.75    │
-│           Scale & rotation invariant  │  Min matches ≥ 7        │
+│  LAYER 2 — GPU: SIFT + FLANN Verification                      │
+│  Cross-verification against target reference image             │
+│  Rotation + scale invariant geometric matching                 │
 └────────────────────────┬────────────────────────────────────────┘
-│ verified lock
+                         │ verified lock
 ┌────────────────────────▼────────────────────────────────────────┐
-│  LAYER 3 — CPU: OpenCV CSRT Tracker (High-Speed Frame Tracking) │
-│           Neural net sleeps  │  Smooth real-time performance    │
-│           Auto wake on drift │  Re-triggers Layers 1 & 2        │
+│  LAYER 3 — CPU: OpenCV CSRT Tracker                            │
+│  Lightweight real-time frame tracking                          │
+│  Auto wake-up of DINO + SIFT on drift detection                │
 └─────────────────────────────────────────────────────────────────┘
-- **⚡ Speed** — GPU inference runs only when needed; CSRT handles in-between frames
-- **📐 Invariance** — SIFT is mathematically resistant to scale and rotation by design
-- **🌦️ Illumination Robustness** — Grounding DINO's semantic understanding ignores pixel-level changes
-- **🔄 Self-Recovery** — Drift triggers automatic re-localization via DINO + SIFT
+```
 
 ---
 
-## 📊 Results & Demos
+# ⚡ Key Advantages
 
-### 🎥 Part 1 — Real-Time Video Tracking & Target Lock-On
-
-| Reference Target | Demo |
-|:---:|:---:|
-| <img src="https://github.com/user-attachments/assets/d7175ae2-9654-4cb8-b92a-98355ff8574f" width="240"> | [![Demo](https://github.com/user-attachments/assets/d7175ae2-9654-4cb8-b92a-98355ff8574f)](REPLACE_WITH_res_vd_URL) |
-| *Target reference used for SIFT lock-on* | *▶ Click to watch — DINO + SIFT lock-on → CSRT takeover* |
-
-### 📐 Part 2 — Batch Image Verification (Scale & Rotation Invariance)
-
-| Reference Target | Demo |
-|:---:|:---:|
-| <img src="https://github.com/user-attachments/assets/df0f3451-1c96-47d0-9aad-c736274e02c1" width="240"> | [![Demo](https://github.com/user-attachments/assets/df0f3451-1c96-47d0-9aad-c736274e02c1)](REPLACE_WITH_res_vd1_URL) |
-| *Candidate region from batch image* | *▶ Click to watch — SIFT correspondence lines overlay* |
+- **⚡ High Performance** — Neural inference runs only when necessary
+- **📐 Rotation & Scale Invariance** — SIFT descriptors remain stable under geometric transforms
+- **🌦️ Illumination Robustness** — Semantic detection avoids brittle pixel-template matching
+- **🔄 Self-Recovery** — Automatic re-localization when tracker confidence decays
+- **🛰️ High-Resolution Scalability** — Efficient for large satellite/drone imagery
 
 ---
-֊֊֊
-## 🛠️ Repository Structure
+
+# 📊 Results & Demonstrations
+
+## 🎥 Part 1 — Real-Time Video Tracking & Target Lock-On
+
+| Reference Target | Demo |
+|:---:|:---:|
+| <img src="https://github.com/user-attachments/assets/d7175ae2-9654-4cb8-b92a-98355ff8574f" width="240"> | [![Demo](https://github.com/user-attachments/assets/d7175ae2-9654-4cb8-b92a-98355ff8574f)](REPLACE_WITH_VIDEO_URL) |
+| *Reference image used for SIFT verification* | *▶ Click to watch — Grounding DINO → SIFT verification → CSRT takeover* |
+
+---
+
+## 📐 Part 2 — Batch Image Verification (Rotation & Scale Invariance)
+
+| Reference Target | Demo |
+|:---:|:---:|
+| <img src="https://github.com/user-attachments/assets/df0f3451-1c96-47d0-9aad-c736274e02c1" width="240"> | [![Demo](https://github.com/user-attachments/assets/df0f3451-1c96-47d0-9aad-c736274e02c1)](REPLACE_WITH_BATCH_VIDEO_URL) |
+| *Candidate crop extracted from large image* | *▶ Click to watch — SIFT correspondence visualization overlay* |
+
+---
+
+# 🛠️ Repository Structure
+
+```text
 object-tracking-sift-dino/
 ├── data/
 │   ├── inputs/
-│   │   ├── target.jpg                   # Reference image for SIFT verification
-│   │   ├── video.mp4                    # Input video for real-time tracking
-│   │   └── images/                      # Static images for batch processing
+│   │   ├── target.jpg
+│   │   ├── video.mp4
+│   │   └── images/
 │   └── outputs/
-│       ├── output_detected_video.mp4    # Annotated tracking output video
-│       ├── output_accurate/             # DINO-verified bounding box frames
-│       └── matching_visuals_0.75/       # SIFT correspondence visualizations
+│       ├── output_detected_video.mp4
+│       ├── output_accurate/
+│       └── matching_visuals_0.75/
+│
 ├── src/
-│   ├── video_pipeline.py                # Real-time: DINO + SIFT + CSRT tracker
-│   └── image_pipeline.py               # Batch: DINO + SIFT + FLANN verification
+│   ├── video_pipeline.py
+│   └── image_pipeline.py
+│
 ├── requirements.txt
 └── README.md
----
-
-## ⚙️ Technical Parameters
-
-| Parameter | Value | Rationale |
-|-----------|-------|-----------|
-| SIFT Lowe's Ratio | `0.75` | Balances match precision vs. recall |
-| Minimum SIFT Matches | `≥ 7` | Prevents geometric false positives |
-| Tracker | `CSRT` | Best accuracy among OpenCV lightweight trackers |
-| Detection Backend | `Grounding DINO` | Zero-shot, text-promptable, illumination-robust |
-| Acceleration | `PyTorch CUDA` | GPU inference for DINO proposals |
+```
 
 ---
 
-## 🚀 Setup
+# ⚙️ Technical Parameters
+
+| Parameter | Value | Purpose |
+|---|---|---|
+| SIFT Lowe's Ratio | `0.75` | Removes ambiguous feature correspondences |
+| Minimum SIFT Matches | `≥ 7` | Suppresses geometric false positives |
+| Tracker | `CSRT` | Highest OpenCV lightweight tracking accuracy |
+| Detection Backend | `Grounding DINO` | Open-vocabulary semantic object detection |
+| Acceleration | `PyTorch CUDA` | GPU-accelerated inference |
+
+---
+
+# 🚀 Setup
+
+## Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-**Real-time video tracking:**
-```bash
-python src/video_pipeline.py --target data/inputs/target.jpg --video data/inputs/video.mp4
-```
+---
 
-**Batch image verification:**
+## Real-Time Video Tracking
+
 ```bash
-python src/image_pipeline.py --target data/inputs/target.jpg --images data/inputs/images/
+python src/video_pipeline.py \
+  --target data/inputs/target.jpg \
+  --video data/inputs/video.mp4
 ```
 
 ---
 
-## 📐 How the Math Works
+## Batch Image Verification
 
-**SIFT Scale-Space Extrema Detection:**
-
-$$L(x, y, \sigma) = G(x, y, \sigma) * I(x, y)$$
-
-Keypoints are detected at scale-space extrema of the Difference-of-Gaussians, giving inherent scale invariance.
-
-**Lowe's Ratio Test:**
-
-$$\frac{d_1}{d_2} < 0.75$$
-
-Only matches where the nearest neighbor is significantly closer than the second-nearest survive, eliminating ambiguous correspondences.
-
-**FLANN** reduces nearest-neighbor search from $O(n^2)$ to $O(n \log n)$, enabling real-time performance on large keypoint sets.
+```bash
+python src/image_pipeline.py \
+  --target data/inputs/target.jpg \
+  --images data/inputs/images/
+```
 
 ---
 
-## 📋 Requirements
+# 📐 Mathematical Foundation
 
-See [`requirements.txt`](requirements.txt) — key dependencies: `torch` (CUDA), `groundingdino`, `opencv-python`, `numpy`
+## SIFT Scale-Space Extrema Detection
+
+$$
+L(x, y, \sigma) = G(x, y, \sigma) * I(x, y)
+$$
+
+SIFT detects keypoints in Difference-of-Gaussians scale space, providing inherent scale invariance.
+
+---
+
+## Lowe’s Ratio Test
+
+$$
+\frac{d_1}{d_2} < 0.75
+$$
+
+A match is accepted only when the nearest descriptor is significantly closer than the second-nearest descriptor.
+
+This eliminates weak or ambiguous correspondences.
+
+---
+
+## FLANN Complexity Reduction
+
+FLANN reduces nearest-neighbor search complexity from:
+
+$$
+O(n^2)
+$$
+
+to approximately:
+
+$$
+O(n \log n)
+$$
+
+making real-time matching feasible for large descriptor sets.
+
+---
+
+# 🔄 Drift Recovery Mechanism
+
+```text
+CSRT Confidence Drop
+          ↓
+Re-trigger Grounding DINO
+          ↓
+Run SIFT + FLANN Verification
+          ↓
+Reinitialize Tracker
+```
+
+This creates a self-healing tracking architecture capable of long-duration persistence.
+
+---
+
+# 🛰️ Real-World Applications
+
+- Satellite imagery intelligence
+- UAV reconnaissance systems
+- Tactical target tracking
+- Maritime surveillance
+- Persistent object monitoring
+- Open-world search-and-track systems
+- Autonomous aerial observation
+
+---
+
+# 📋 Requirements
+
+Key dependencies:
+
+- torch (CUDA)
+- groundingdino
+- opencv-python
+- numpy
+
+See:
+
+```text
+requirements.txt
+```
+
+---
+
+# 🧠 Summary
+
+This system combines:
+
+- **Semantic understanding** via Grounding DINO
+- **Geometric verification** via SIFT + FLANN
+- **Temporal persistence** via CSRT tracking
+
+instead of relying on a single fragile technique.
+
+The result is a fast, rotation-invariant, illumination-robust, self-recovering object tracking pipeline optimized for real-world aerial and tactical environments where false positives are unacceptable.
