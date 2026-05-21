@@ -76,25 +76,7 @@
 Grounding DINO semantic proposals → SIFT verification → CSRT persistent tracking
 </p>
 
----
 
-# 🖼️ Additional Matching Visualizations
-
-<p align="center">
-  <img src="assets/results/match_5390824680161219385.jpg" width="32%">
-  <img src="assets/results/match_5390824680161219406.jpg" width="32%">
-  <img src="assets/results/match_5390824680161219409.jpg" width="32%">
-</p>
-
-<p align="center">
-  <img src="assets/results/match_5390824680161219412.jpg" width="32%">
-  <img src="assets/results/match_5390824680161219423.jpg" width="32%">
-  <img src="assets/results/match_5391006524781564753.jpg" width="32%">
-</p>
-
-<p align="center">
-SIFT + FLANN geometric correspondence visualizations across varying scales, rotations, and illumination conditions
-</p>
 ---
 
 ## 📐 Batch Image Verification (Rotation & Scale Invariance)
@@ -123,7 +105,25 @@ SIFT + FLANN geometric correspondence visualizations across varying scales, rota
 Scale & rotation invariant SIFT correspondence verification using FLANN matching
 </p>
 ---
+---
 
+# 🖼️ Additional Matching Visualizations
+
+<p align="center">
+  <img src="assets/results/match_5390824680161219385.jpg" width="32%">
+  <img src="assets/results/match_5390824680161219406.jpg" width="32%">
+  <img src="assets/results/match_5390824680161219409.jpg" width="32%">
+</p>
+
+<p align="center">
+  <img src="assets/results/match_5390824680161219412.jpg" width="32%">
+  <img src="assets/results/match_5390824680161219423.jpg" width="32%">
+  <img src="assets/results/match_5391006524781564753.jpg" width="32%">
+</p>
+
+<p align="center">
+SIFT + FLANN geometric correspondence visualizations across varying scales, rotations, and illumination conditions
+</p>
 # 🛠️ Repository Structure
 
 ```text
