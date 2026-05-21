@@ -104,8 +104,7 @@ Grounding DINO semantic proposals → SIFT verification → CSRT persistent trac
 <p align="center">
 Scale & rotation invariant SIFT correspondence verification using FLANN matching
 </p>
----
----
+
 
 ---
 
