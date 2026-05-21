@@ -71,23 +71,25 @@ For static datasets and large map grids, the system draws point-to-point SIFT co
 
 ---
 
-## 🛠️ Repository Structure
+## 🛠️  Repository Architecture
 
+```
 object-tracking-sift-dino/
 ├── data/
 │   ├── inputs/
-│   │   ├── target.jpg                   # Reference image for SIFT verification
-│   │   ├── video.mp4                    # Input video for real-time tracking
-│   │   └── images/                      # Static images for batch processing
+│   │   ├── target.jpg          # Reference target image to find/verify
+│   │   ├── video.mp4           # Input video stream for real-time tracking
+│   │   └── images/             # Directory containing static images for batch testing
 │   └── outputs/
-│       ├── output_detected_video.mp4    # Annotated tracking output video
-│       ├── output_accurate/             # DINO-verified bounding box frames
-│       └── matching_visuals_0.75/       # SIFT correspondence visualizations
+│       ├── output_detected_video.mp4  # Generated high-speed tracking video
+│       ├── output_accurate/           # Bounding box annotated frames (DINO verified)
+│       └── matching_visuals_0.75/     # SIFT verification line plots
 ├── src/
-│   ├── video_pipeline.py                # Real-time: DINO + SIFT + CSRT tracker
-│   └── image_pipeline.py               # Batch: DINO + SIFT + FLANN verification
-├── requirements.txt
-└── README.md
+│   ├── video_pipeline.py       # Live Tracking Script (DINO + SIFT + CSRT Tracker)
+│   └── image_pipeline.py       # Static Batch Verification Script (DINO + SIFT + FLANN)
+├── .gitignore
+├── README.md
+└── requirements.txt
 
 
 ---
