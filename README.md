@@ -50,7 +50,7 @@
 
 # 📊 Results & Demonstrations
 
-## 🎥 Real-Time Video Tracking & Target Lock-On
+## 🎥 Video Tracking & Target Lock-On
 
 <p align="center">
   <img src="assets/gifs/demo.gif" width="1000">
