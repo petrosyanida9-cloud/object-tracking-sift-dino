@@ -34,16 +34,32 @@ Here is how the hybrid pipeline performs under strict verification and dynamic t
 ### A. Real-Time Video Tracking & Target Lock-On
 *The baseline target is verified via SIFT geometry on the GPU, after which the lightweight CSRT tracker maintains a high frame-rate lock-on.*
 
-| 🎯 Reference Target Image | 🔒 Target Verification & Active Tracking |
-|---|---|
-| <img src="https://github.com/user-attachments/assets/d7175ae2-9654-4cb8-b92a-98355ff8574f" width="220" alt="Target Reference"> <br> *Figure 1: The specific structural target used for matching.* | <video src="https://github.com/user-attachments/assets/ba271dc7-2e47-4c93-9a3b-13f34fed960c" width="100%" autoplay loop muted controls></video> <br> *Figure 2: Grounding DINO + SIFT locking on and offloading to CSRT.* |
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/d7175ae2-9654-4cb8-b92a-98355ff8574f" width="250" alt="Target Reference">
+  <br>
+  <i>Figure 1: The specific structural target (Reference Image) used for matching.</i>
+</p>
+
+#### 🎥 Active Pipeline Demo:
+*Below is the actual running inference. Grounding DINO + SIFT locks onto the object and offloads to the high-speed CSRT tracker:*
+
+https://github.com/user-attachments/assets/ba271dc7-2e47-4c93-9a3b-13f34fed960c
+
+---
 
 ### B. Image Collection Batch Verification (Scale & Rotation Invariance)
 *When evaluating static datasets or large map grids, the system maps precise point-to-point visual correlation lines to guarantee absolute structural alignment.*
 
-| 🖼️ Multi-Object Scene Detection | 📐 SIFT Point Correspondence Mapping |
-|---|---|
-| <img src="https://github.com/user-attachments/assets/df0f3451-1c96-47d0-9aad-c736274e02c1" width="180" alt="Target Object"> <br> *Figure 3: Candidate region proposal.* | <video src="https://github.com/user-attachments/assets/67189a73-65f5-4f60-900c-e2a40df3c9d4" width="100%" autoplay loop muted controls></video> <br> *Figure 4: Invariant feature matching overlay.* |
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/df0f3451-1c96-47d0-9aad-c736274e02c1" width="220" alt="Target Object">
+  <br>
+  <i>Figure 2: Candidate region proposal from batch images.</i>
+</p>
+
+#### 📐 SIFT Point Correspondence Mapping Demo:
+*Visual demonstration of scale and rotation invariance during match verification:*
+
+https://github.com/user-attachments/assets/67189a73-65f5-4f60-900c-e2a40df3c9d4
 
 ## 🛠️ 4. Repository Architecture
 
