@@ -56,7 +56,7 @@
 | *Candidate region from batch image* | *▶ Click to watch — SIFT correspondence lines overlay* |
 
 ---
-
+֊֊֊
 ## 🛠️ Repository Structure
 object-tracking-sift-dino/
 ├── data/
