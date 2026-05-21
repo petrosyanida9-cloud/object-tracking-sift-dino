@@ -1,58 +1,60 @@
-Markdown# Hybrid Object Detection & Tracking (Grounding DINO + SIFT)
+# Hybrid Zero-Shot Object Detection, Keypoint Verification & Tracking
 
-An intelligent computer vision repository designed to lock onto, track, and verify specific visual targets within dynamic video feeds and static image collections. By combining zero-shot deep learning detection with classic high-accuracy keypoint matching, this pipeline offers robust re-localization and precise verification.
+An advanced computer vision pipeline that combines deep learning zero-shot object detection with classic high-precision feature matching and high-speed state tracking. This hybrid architecture is specifically optimized for high-accuracy targets where false positives must be zero, such as locating specific structures in satellite/map imagery or maintaining a continuous lock on specific moving targets.
 
-## 🚀 Repository Structure
+---
+
+## 📌 1. The Problem Statement
+Modern computer vision systems often struggle with two fundamental challenges when deployed in precision-critical tracking scenarios:
+1. **The Heavy Inference Bottleneck:** Running large transformer-based object detectors (like Grounding DINO) on every single frame of a high-resolution video stream is computationally prohibitive and causes latency.
+2. **The Tracker Drift & False Positive Dilemma:** Standard lightweight visual trackers (like CSRT or KCF) are fast but lack semantic intelligence. They easily lose the target (drift) during fast motion, occlusion, or background noise, and they cannot self-verify if they are tracking the correct asset or a background object.
+
+---
+
+## 💡 2. Our Hybrid Solution
+This repository presents an elegant split-architecture pipeline that solves both constraints by separating **Localization**, **Strict Verification**, and **High-Speed Tracking**:
+
+* **Zero-Shot Candidate Proposal:** We leverage **Grounding DINO** using semantic text prompts (e.g., `small object . tiny structure . central building .`) to locate target candidates without training a custom object detector.
+* **Rigorous SIFT Verification:** To eliminate false detections, candidates are validated against a local reference image (`target.jpg`). Feature extraction via **SIFT** and correspondence matching via **FLANN** filter out noise using a tight **Lowe's Ratio (0.75)**. A target lock-on is granted *only* if geometric consistency meets a minimum threshold of **>= 7 strict keypoint matches**.
+* **Offloaded Continuous Tracking:** Once a target is verified, the heavy neural network inference goes to sleep. A fast, CPU-efficient **OpenCV CSRT Tracker** takes over to maintain real-time tracking across video frames.
+* **Automated Drift Recovery:** If the CSRT tracker's confidence drops or loses the target, the pipeline automatically re-triggers the Grounding DINO + SIFT loop to re-localize and re-lock the asset.
+
+---
+
+## 📊 3. Visual Results & Outputs
+Here is the pipeline executing successfully under strict constraints.
+
+### A. Real-Time Video Tracking & Lock-On
+*Below you can see Grounding DINO initially detecting the target, SIFT verifying the keypoint geometry, and the CSRT tracker taking over with high frame rates.*
+
+| Initial Target Lock & Verification | Continuous CSRT Tracker States |
+|---|---|
+| <!-- Replace 'data/outputs/verification.png' with your image or GIF path --> <img src="data/outputs/output_accurate/det_frame_sample.jpg" width="100%" alt="Target Locked"> | <!-- Replace with another screenshot or video link --> <img src="data/outputs/output_accurate/tracking_sample.gif" width="100%" alt="Tracking Mode"> |
+
+### B. Image Collection Batch Verification (SIFT Feature Matching Lines)
+*For individual image analysis, the pipeline isolates candidate bounding boxes and maps point-to-point correspondence to prove mathematical alignment.*
+
+<!-- Place one of your best matching output images here -->
+![SIFT Mapping Lines](data/outputs/matching_visuals_0.75/match_sample.jpg)
+
+---
+
+## 🛠️ 4. Repository Architecture
 
 ```text
 object-tracking-sift-dino/
 ├── data/
 │   ├── inputs/
-│   │   ├── target.jpg          # Target object to search for
-│   │   ├── video.mp4           # Input video for tracking
-│   │   └── images/             # Input folder for static image testing
+│   │   ├── target.jpg          # Reference target image to find/verify
+│   │   ├── video.mp4           # Input video stream for real-time tracking
+│   │   └── images/             # Directory containing static images for batch testing
 │   └── outputs/
-│       ├── output_detected_video.mp4
-│       ├── output_accurate/    # DINO + SIFT verified images
-│       └── matching_visuals_0.75/
+│       ├── output_detected_video.mp4  # Generated high-speed tracking video
+│       ├── output_accurate/           # Bounding box annotated frames (DINO verified)
+│       └── matching_visuals_0.75/     # SIFT verification line plots
 ├── src/
-│   ├── video_pipeline.py       # Hybrid Video Tracking (DINO + SIFT + CSRT)
-│   └── image_pipeline.py       # Image Collection Verification (DINO + SIFT + FLANN)
+│   ├── video_pipeline.py       # Live Tracking Script (DINO + SIFT + CSRT Tracker)
+│   └── image_pipeline.py       # Static Batch Verification Script (DINO + SIFT + FLANN)
 ├── .gitignore
 ├── README.md
 └── requirements.txt
-
-## 🛠️ System Architectures
-
-### 1. Video Pipeline (`src/video_pipeline.py`)
-- **Initialization:** Grounding DINO scans frames with text prompts to locate potential targets.
-- **Verification:** Candidates are cross-verified against `target.jpg` using SIFT feature matching with Lowe's Ratio test (0.75) to guarantee a minimum match count (>= 7).
-- **Tracking:** Once a lock-on is achieved, an efficient **OpenCV CSRT tracker** takes over to handle frame-by-frame updates without running heavy neural network inferences constantly.
-- **Recovery:** If the tracker loses the target, Grounding DINO re-triggers automatically to re-localize the object.
-
-### 2. Image Collection Pipeline (`src/image_pipeline.py`)
-- Processes batches of static images inside `data/inputs/images/`.
-- Extracts object crops using Grounding DINO based on custom semantic text prompts.
-- Runs **SIFT + FLANN Based Matcher** on bounding box crops to find highly accurate feature correspondences, outputting clear visual correlation lines for targets matching the threshold criteria.
-
-## 📦 Installation & Usage
-
-Ensure you have a Linux environment with Python 3.10+ and the required packages installed:
-
-```bash
-# Clone the repository
-git clone [https://github.com/petrosyanida9-cloud/object-tracking-sift-dino.git](https://github.com/petrosyanida9-cloud/object-tracking-sift-dino.git)
-cd object-tracking-sift-dino
-
-# Install dependencies
-pip install -r requirements.txt
-
-Running the pipelines:
-
-Place your sample assets inside data/inputs/ and run either script:
-Bash
-
-python src/video_pipeline.py
-python src/image_pipeline.py
-
-
