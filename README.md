@@ -1,7 +1,3 @@
-
-
-
-
 # Hybrid Zero-Shot Object Detection, Keypoint Verification & Tracking
 
 An advanced computer vision pipeline that combines deep learning zero-shot object detection with classic high-precision feature matching and high-speed state tracking. This hybrid architecture is specifically optimized for high-accuracy targets where false positives must be zero, such as locating specific structures in satellite/map imagery or maintaining a continuous lock on specific moving targets.
@@ -35,15 +31,14 @@ Here is how the hybrid pipeline performs under strict verification and dynamic t
 *The baseline target is verified via SIFT geometry on the GPU, after which the lightweight CSRT tracker maintains a high frame-rate lock-on.*
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/d7175ae2-9654-4cb8-b92a-98355ff8574f" width="250" alt="Target Reference">
+  <img src="https://github.com/user-attachments/assets/d7175ae2-9654-4cb8-b92a-98355ff8574f" width="280" alt="Target Reference">
   <br>
   <i>Figure 1: The specific structural target (Reference Image) used for matching.</i>
 </p>
 
 #### 🎥 Active Pipeline Demo:
-*Below is the actual running inference. Grounding DINO + SIFT locks onto the object and offloads to the high-speed CSRT tracker:*
-
-https://github.com/user-attachments/assets/ba271dc7-2e47-4c93-9a3b-13f34fed960c
+<iframe src="https://github.com/user-attachments/assets/ba271dc7-2e47-4c93-9a3b-13f34fed960c" width="100%" height="360" frameborder="0" allowfullscreen></iframe>
+<p align="center"><i>Figure 2: Grounding DINO + SIFT locking on and offloading to CSRT tracker.</i></p>
 
 ---
 
@@ -53,13 +48,14 @@ https://github.com/user-attachments/assets/ba271dc7-2e47-4c93-9a3b-13f34fed960c
 <p align="center">
   <img src="https://github.com/user-attachments/assets/df0f3451-1c96-47d0-9aad-c736274e02c1" width="220" alt="Target Object">
   <br>
-  <i>Figure 2: Candidate region proposal from batch images.</i>
+  <i>Figure 3: Candidate region proposal from batch images.</i>
 </p>
 
 #### 📐 SIFT Point Correspondence Mapping Demo:
-*Visual demonstration of scale and rotation invariance during match verification:*
+<iframe src="https://github.com/user-attachments/assets/67189a73-65f5-4f60-900c-e2a40df3c9d4" width="100%" height="360" frameborder="0" allowfullscreen></iframe>
+<p align="center"><i>Figure 4: Invariant feature matching overlay and correlation lines.</i></p>
 
-https://github.com/user-attachments/assets/67189a73-65f5-4f60-900c-e2a40df3c9d4
+---
 
 ## 🛠️ 4. Repository Architecture
 
@@ -80,19 +76,3 @@ object-tracking-sift-dino/
 ├── .gitignore
 ├── README.md
 └── requirements.txt
-
-
-https://github.com/user-attachments/assets/7c120bc5-9f60-4414-afba-359da6bb4d51
-
-
-https://github.com/user-attachments/assets/4a6a8c63-ecfa-4d84-b77c-b13b00de24a5
-<img width="292" height="213" alt="target" src="https://github.com/user-attachments/assets/d7175ae2-9654-4cb8-b92a-98355ff8574f" />
-
-<img width="70" height="101" alt="target_vd" src="https://github.com/user-attachments/assets/df0f3451-1c96-47d0-9aad-c736274e02c1" />
-
-
-
-
-
-
-
