@@ -8,7 +8,7 @@ An advanced computer vision pipeline that combines deep learning zero-shot objec
 
 ---
 
-## 📌 1. The Problem Statement (Խնդիրը)
+## 📌 1. The Problem Statement 
 Modern computer vision systems face critical failures when deployed in real-world tactical or satellite tracking scenarios due to four main bottlenecks:
 1. **The Heavy Inference Bottleneck:** Running large transformer-based object detectors (like Grounding DINO) on every single frame of a high-resolution video stream is computationally prohibitive and causes massive latency.
 2. **Extreme Scale & Rotation Variations:** Objects captured from drones or satellites constantly change orientation ($360^\circ$ rotation) and altitude (drastic scale differences). Naive tracking or brute-force image pyramids fail or consume too much memory.
@@ -17,7 +17,7 @@ Modern computer vision systems face critical failures when deployed in real-worl
 
 ---
 
-## 💡 2. Our Hybrid Solution (Մեր Լուծումը)
+## 💡 2. Our Hybrid Solution 
 This repository presents an elegant, mathematically robust pipeline that achieves **blazing-fast speed** and **multi-environmental invariance** by separating tasks into specialized layers:
 
 * **⚡ GPU-Accelerated Zero-Shot Proposals:** We leverage **Grounding DINO** combined with **PyTorch CUDA acceleration** to parse complex scenes instantly based on text prompts. This provides semantic-level candidate localization under extreme illumination shifts without custom training.
@@ -27,7 +27,7 @@ This repository presents an elegant, mathematically robust pipeline that achieve
 
 ---
 
-## 📊 3. Visual Results & Showcase (Արդյունքներ)
+## 📊 3. Visual Results & Showcase 
 
 Here is how the pipeline performs under strict verification constraints. 
 
