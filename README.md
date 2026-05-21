@@ -110,17 +110,19 @@ Scale & rotation invariant SIFT correspondence verification using FLANN matching
 
 # 🖼️ Additional Matching Visualizations
 
-<p align="center">
-  <img src="assets/results/match_5390824680161219385.jpg" width="32%">
-  <img src="assets/results/match_5390824680161219406.jpg" width="32%">
-  <img src="assets/results/match_5390824680161219409.jpg" width="32%">
-</p>
+<table align="center">
+<tr>
+  <td><img src="assets/results/match_5390824680161219385.jpg" width="300"></td>
+  <td><img src="assets/results/match_5390824680161219406.jpg" width="300"></td>
+  <td><img src="assets/results/match_5390824680161219409.jpg" width="300"></td>
+</tr>
 
-<p align="center">
-  <img src="assets/results/match_5390824680161219412.jpg" width="32%">
-  <img src="assets/results/match_5390824680161219423.jpg" width="32%">
-  <img src="assets/results/match_5391006524781564753.jpg" width="32%">
-</p>
+<tr>
+  <td><img src="assets/results/match_5390824680161219412.jpg" width="300"></td>
+  <td><img src="assets/results/match_5390824680161219423.jpg" width="300"></td>
+  <td><img src="assets/results/match_5391006524781564753.jpg" width="300"></td>
+</tr>
+</table>
 
 <p align="center">
 SIFT + FLANN geometric correspondence visualizations across varying scales, rotations, and illumination conditions
